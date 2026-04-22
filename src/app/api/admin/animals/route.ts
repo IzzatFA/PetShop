@@ -19,6 +19,7 @@ export async function POST(req: Request) {
                 categoryId: parseInt(body.categoryId),
                 description: body.description ?? null,
                 imageUrl: body.imageUrl ?? null,
+                stock: body.stock !== undefined ? Number(body.stock) : 1,
             })
             .select()
             .single();
