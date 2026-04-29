@@ -1,0 +1,36 @@
+import adoptionModel from '../models/adoptionModel.js';
+
+const store = async (req, res) => {
+  try {
+    const { user_id, animal_id } = req.body;
+    const adoption = await adoptionModel.createAdoption(user_id, animal_id);
+    res.status(201).json({ message: 'Adoption request submitted', adoption });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to submit adoption request', details: error.message });
+  }
+};
+
+const userAdoptions = async (req, res) => {
+  try {
+    const adoptions = await adoptionModel.getAdoptionsByUserId(req.params.userId);
+    res.status(200).json(adoptions);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch adoptions' });
+  }
+};
+
+const updateStatus = async (req, res) => {
+  try {
+    const { status } = req.body; // pending, approved, rejected
+    const adoption = await adoptionModel.updateAdoptionStatus(req.params.id, status);
+    res.status(200).json({ message: 'Adoption status updated', adoption });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update adoption status' });
+  }
+};
+
+export default {
+  store,
+  userAdoptions,
+  updateStatus,
+};
