@@ -1,5 +1,14 @@
 import adoptionModel from '../models/adoptionModel.js';
 
+const index = async (req, res) => {
+  try {
+    const adoptions = await adoptionModel.getAllAdoptions();
+    res.status(200).json(adoptions);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch adoptions' });
+  }
+};
+
 const store = async (req, res) => {
   try {
     const { user_id, animal_id } = req.body;
@@ -30,6 +39,7 @@ const updateStatus = async (req, res) => {
 };
 
 export default {
+  index,
   store,
   userAdoptions,
   updateStatus,

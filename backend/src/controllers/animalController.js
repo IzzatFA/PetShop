@@ -23,8 +23,8 @@ const show = async (req, res) => {
 
 const store = async (req, res) => {
   try {
-    const { category_id, breed, age, description, status } = req.body;
-    const animal = await animalModel.createAnimal(category_id, breed, age, description, status);
+    const { category_id, breed, age, description, status, image_url } = req.body;
+    const animal = await animalModel.createAnimal(category_id, breed, age, description, status, image_url);
     res.status(201).json({ message: 'Animal created', animal });
   } catch (error) {
     res.status(500).json({ error: 'Failed to create animal', details: error.message });

@@ -21,19 +21,19 @@ const getAnimalById = async (id) => {
   return result.rows[0];
 };
 
-const createAnimal = async (category_id, breed, age, description, status = 'available') => {
+const createAnimal = async (category_id, breed, age, description, status = 'available', image_url = null) => {
   const result = await db.query(
-    'INSERT INTO animals (category_id, breed, age, description, status) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-    [category_id, breed, age, description, status]
+    'INSERT INTO animals (category_id, breed, age, description, status, image_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+    [category_id, breed, age, description, status, image_url]
   );
   return result.rows[0];
 };
 
 const updateAnimal = async (id, data) => {
-  const { category_id, breed, age, description, status } = data;
+  const { category_id, breed, age, description, status, image_url } = data;
   const result = await db.query(
-    'UPDATE animals SET category_id = COALESCE($1, category_id), breed = COALESCE($2, breed), age = COALESCE($3, age), description = COALESCE($4, description), status = COALESCE($5, status) WHERE id = $6 AND deleted_at IS NULL RETURNING *',
-    [category_id, breed, age, description, status, id]
+    'UPDATE animals SET category_id = COALESCE($1, category_id), breed = COALESCE($2, breed), age = COALESCE($3, age), description = COALESCE($4, description), status = COALESCE($5, status), image_url = COALESCE($6, image_url) WHERE id = $7 AND deleted_at IS NULL RETURNING *',
+    [category_id, breed, age, description, status, image_url, id]
   );
   return result.rows[0];
 };
