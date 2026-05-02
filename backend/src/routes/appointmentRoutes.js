@@ -6,5 +6,6 @@ const router = express.Router();
 router.get('/', appointmentController.index);
 router.post('/', appointmentController.store);
 router.get('/user/:userId', appointmentController.userAppointments);
+router.put('/:id/status', appointmentController.updateStatus);
 
 export default router;

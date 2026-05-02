@@ -32,8 +32,17 @@ const getAllAppointments = async () => {
   return result.rows;
 };
 
+const updateAppointmentStatus = async (id, status) => {
+  const result = await db.query(
+    'UPDATE appointments SET status = $1 WHERE id = $2 RETURNING *',
+    [status, id]
+  );
+  return result.rows[0];
+};
+
 export default {
   createAppointment,
   getAppointmentsByUserId,
   getAllAppointments,
+  updateAppointmentStatus,
 };

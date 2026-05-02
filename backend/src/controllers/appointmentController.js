@@ -28,8 +28,19 @@ const userAppointments = async (req, res) => {
   }
 };
 
+const updateStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const appointment = await appointmentModel.updateAppointmentStatus(req.params.id, status);
+    res.status(200).json({ message: 'Appointment status updated', appointment });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update appointment status' });
+  }
+};
+
 export default {
   index,
   store,
   userAppointments,
+  updateStatus,
 };
