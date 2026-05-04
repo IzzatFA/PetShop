@@ -20,7 +20,29 @@ const getAppointmentsByUserId = async (user_id) => {
   return result.rows;
 };
 
+const getAllAppointments = async () => {
+  const result = await db.query(`
+    SELECT ap.*, an.breed, an.description as animal_desc, c.name as category_name, u.name as user_name, u.email as user_email
+    FROM appointments ap
+    JOIN animals an ON ap.animal_id = an.id
+    LEFT JOIN categories c ON an.category_id = c.id
+    JOIN users u ON ap.user_id = u.id
+    ORDER BY ap.date ASC
+  `);
+  return result.rows;
+};
+
+const updateAppointmentStatus = async (id, status) => {
+  const result = await db.query(
+    'UPDATE appointments SET status = $1 WHERE id = $2 RETURNING *',
+    [status, id]
+  );
+  return result.rows[0];
+};
+
 export default {
   createAppointment,
   getAppointmentsByUserId,
+  getAllAppointments,
+  updateAppointmentStatus,
 };

@@ -20,6 +20,18 @@ const getAdoptionsByUserId = async (user_id) => {
   return result.rows;
 };
 
+const getAllAdoptions = async () => {
+  const result = await db.query(`
+    SELECT ad.*, an.breed, an.description as animal_desc, c.name as category_name, u.name as user_name, u.email as user_email
+    FROM adoptions ad
+    JOIN animals an ON ad.animal_id = an.id
+    LEFT JOIN categories c ON an.category_id = c.id
+    JOIN users u ON ad.user_id = u.id
+    ORDER BY ad.created_at DESC
+  `);
+  return result.rows;
+};
+
 const updateAdoptionStatus = async (id, status) => {
   const result = await db.query(
     'UPDATE adoptions SET status = $1 WHERE id = $2 RETURNING *',
@@ -31,5 +43,6 @@ const updateAdoptionStatus = async (id, status) => {
 export default {
   createAdoption,
   getAdoptionsByUserId,
+  getAllAdoptions,
   updateAdoptionStatus,
 };
