@@ -1,0 +1,22 @@
+:root {
+  --dh-primary: #5C2822;
+  --dh-bg-light: #F8EAE4;
+  --dh-bg-gradient: linear-gradient(180deg, #F8EAE4 0%, #EFC7B6 100%);
+  --dh-text: #5C2822;
+  --dh-text-light: #8A5A52;
+  --dh-radius-pill: 9999px;
+}
+
+.daftar-hewan-page {
+  background: var(--dh-bg-gradient);
+  min-height: 100vh;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  color: var(--dh-text);
+  padding-bottom: 0; /* Let footer handle bottom spacing */
+}
+
+.daftar-hewan-page .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}

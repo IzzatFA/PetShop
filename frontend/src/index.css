@@ -46,7 +46,10 @@
   padding: 0;
 }
 
-html { scroll-behavior: smooth; }
+html { 
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+}
 
 body {
   font-family: 'Inter', -apple-system, sans-serif;
@@ -55,6 +58,7 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  overscroll-behavior-y: none; /* Prevents elastic scrolling past edges */
   -webkit-font-smoothing: antialiased;
 }
 

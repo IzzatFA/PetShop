@@ -1,0 +1,55 @@
+.dh-pet-card {
+  background-color: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(92, 40, 34, 0.05);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.dh-pet-card:hover {
+  transform: translateY(-8px);
+}
+
+.dh-pet-image-container {
+  height: 260px;
+  width: 100%;
+}
+
+.dh-pet-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #f0f0f0;
+}
+
+.dh-pet-info {
+  padding: 16px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.dh-pet-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--dh-primary);
+  margin: 0;
+}
+
+.dh-pet-badges {
+  display: flex;
+  gap: 12px;
+}
+
+.dh-pet-badge {
+  padding: 4px 16px;
+  border-radius: var(--dh-radius-pill);
+  border: 1px solid var(--dh-primary);
+  font-size: 13px;
+  color: var(--dh-primary);
+  background-color: white;
+  font-weight: 500;
+}

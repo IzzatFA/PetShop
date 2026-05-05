@@ -5,6 +5,10 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import UserDashboard from './pages/UserDashboard';
+import DaftarHewan from './pages/DaftarHewan';
+import PetDetail from './pages/DaftarHewan/PetDetail';
+import AlurAdopsi from './pages/AlurAdopsi';
+import Kontak from './pages/Kontak';
 
 import AdminLayout from './components/AdminLayout';
 import AdminDashboard from './pages/admin/Dashboard';
@@ -30,6 +34,10 @@ function AppRoutes() {
     <Routes>
       {/* Public */}
       <Route path="/" element={<Home />} />
+      <Route path="/daftar-hewan" element={<DaftarHewan />} />
+      <Route path="/daftar-hewan/:id" element={<PetDetail />} />
+      <Route path="/alur-adopsi" element={<AlurAdopsi />} />
+      <Route path="/kontak" element={<Kontak />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 

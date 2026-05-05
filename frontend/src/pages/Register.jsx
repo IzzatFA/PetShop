@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
-import { PawPrint, Mail, Lock, User } from 'lucide-react';
+import { PawPrint } from 'lucide-react';
+import Navbar from './DaftarHewan/components/Navbar';
+import logoPaw from '../assets/logo/logo2-removebg-preview 2.png';
+import hero1 from '../assets/hero_sig-up1.png';
+import hero2 from '../assets/hero_sig-up2.png';
+
+import './DaftarHewan/DaftarHewan.css';
+import './Register.css';
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -29,60 +36,73 @@ export default function Register() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem',
-      background: 'radial-gradient(ellipse at top, rgba(236,72,153,0.06), transparent 60%)' }}>
-      <div className="glass anim-fade-up" style={{ width: '100%', maxWidth: 420, padding: '2.5rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{
-            width: 52, height: 52, borderRadius: 14, margin: '0 auto 1rem',
-            background: 'linear-gradient(135deg, var(--secondary), var(--accent))',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}>
-            <PawPrint size={24} color="#fff" />
+    <div className="reg-page">
+      <Navbar />
+
+      {/* Placeholder images from internet for dog and cat cutouts */}
+      <img src={hero1} alt="Dog" className="reg-bg-dog" />
+      <img src={hero2} alt="Cat" className="reg-bg-cat" />
+
+      <div className="reg-content">
+        <div className="reg-card">
+          <div className="reg-header">
+            <div className="reg-paw-icon">
+              <img src={logoPaw} alt="Paw" style={{ height: '48px' }} />
+            </div>
+            {/* Fixing typo from the design image: "Cerate Account" -> "Create Account" */}
+            <h2 className="reg-title">Create Account</h2>
+            <p className="reg-subtitle">Join Rumah Hewan Today!</p>
           </div>
-          <h2 style={{ fontSize: '1.5rem' }}>Buat Akun Baru</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.4rem' }}>
-            Bergabunglah untuk mengadopsi hewan impian Anda.
+
+          {error && <div className="reg-error">{error}</div>}
+
+          <form onSubmit={handleSubmit}>
+            <div className="reg-form-group">
+              <label className="reg-label">Full Name</label>
+              <input 
+                type="text" 
+                className="reg-input" 
+                placeholder="Enter your full name"
+                value={form.name} 
+                onChange={e => set('name', e.target.value)} 
+                required 
+              />
+            </div>
+            
+            <div className="reg-form-group">
+              <label className="reg-label">Email</label>
+              <input 
+                type="email" 
+                className="reg-input" 
+                placeholder="Enter your email"
+                value={form.email} 
+                onChange={e => set('email', e.target.value)} 
+                required 
+              />
+            </div>
+            
+            <div className="reg-form-group">
+              <label className="reg-label">Password</label>
+              <input 
+                type="password" 
+                className="reg-input" 
+                placeholder="Enter your password"
+                value={form.password} 
+                onChange={e => set('password', e.target.value)} 
+                required 
+                minLength={6} 
+              />
+            </div>
+
+            <button type="submit" className="reg-btn" disabled={loading}>
+              {loading ? 'Processing...' : 'Sign Up'}
+            </button>
+          </form>
+
+          <p className="reg-footer-text">
+            Already have account? <Link to="/login" className="reg-link">Sign in</Link>
           </p>
         </div>
-
-        {error && <div className="alert alert-error">{error}</div>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="form-label">Nama Lengkap</label>
-            <div className="form-input-icon">
-              <User size={17} />
-              <input type="text" className="form-input" placeholder="John Doe"
-                value={form.name} onChange={e => set('name', e.target.value)} required />
-            </div>
-          </div>
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <div className="form-input-icon">
-              <Mail size={17} />
-              <input type="email" className="form-input" placeholder="email@contoh.com"
-                value={form.email} onChange={e => set('email', e.target.value)} required />
-            </div>
-          </div>
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <div className="form-input-icon">
-              <Lock size={17} />
-              <input type="password" className="form-input" placeholder="Minimal 6 karakter"
-                value={form.password} onChange={e => set('password', e.target.value)} required minLength={6} />
-            </div>
-          </div>
-          <button type="submit" className="btn btn-primary" disabled={loading}
-            style={{ width: '100%', marginTop: '0.5rem', padding: '0.85rem' }}>
-            {loading ? 'Memproses...' : 'Daftar'}
-          </button>
-        </form>
-
-        <p style={{ textAlign: 'center', marginTop: '1.75rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-          Sudah punya akun?{' '}
-          <Link to="/login" style={{ color: 'var(--primary)', fontWeight: 600 }}>Masuk di sini</Link>
-        </p>
       </div>
     </div>
   );

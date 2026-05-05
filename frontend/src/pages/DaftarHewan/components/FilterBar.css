@@ -1,0 +1,72 @@
+.dh-filter-section {
+  position: relative;
+  z-index: 5;
+  padding-bottom: 40px;
+  padding-top: 40px; /* Strong gap from the hero section */
+}
+
+.dh-filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.dh-search-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  background-color: white;
+  border-radius: var(--dh-radius-pill);
+  display: flex;
+  align-items: center;
+  padding: 14px 24px;
+}
+
+.dh-search-icon {
+  margin-right: 12px;
+  color: #ccc;
+}
+
+.dh-search-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  color: var(--dh-primary);
+  background: transparent;
+  font-family: inherit;
+}
+
+.dh-search-input::placeholder {
+  color: #ccc;
+}
+
+.dh-category-filters {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dh-filter-btn {
+  padding: 10px 32px;
+  border-radius: var(--dh-radius-pill);
+  background-color: white;
+  color: var(--dh-primary);
+  font-weight: 500;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.dh-filter-btn:hover {
+  opacity: 0.9;
+}
+
+.dh-filter-btn.active {
+  background-color: var(--dh-primary);
+  color: white;
+}

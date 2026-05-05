@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
-import { PawPrint, Mail, Lock } from 'lucide-react';
+import { PawPrint } from 'lucide-react';
+import Navbar from './DaftarHewan/components/Navbar';
+import logoPaw from '../assets/logo/logo2-removebg-preview 2.png';
+
+import './DaftarHewan/DaftarHewan.css';
+import './Register.css'; // Reusing Register.css for identical layout styling
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -28,52 +33,57 @@ export default function Login() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem',
-      background: 'radial-gradient(ellipse at top, rgba(99,102,241,0.08), transparent 60%)' }}>
-      <div className="glass anim-fade-up" style={{ width: '100%', maxWidth: 420, padding: '2.5rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div style={{
-            width: 52, height: 52, borderRadius: 14, margin: '0 auto 1rem',
-            background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}>
-            <PawPrint size={24} color="#fff" />
+    <div className="reg-page">
+      <Navbar />
+
+      {/* No animal background images here as per the Sign In design */}
+
+      <div className="reg-content">
+        <div className="reg-card">
+          <div className="reg-header">
+            <div className="reg-paw-icon">
+              <img src={logoPaw} alt="Paw" style={{ height: '48px' }} />
+            </div>
+            <h2 className="reg-title">Selamat Datang!</h2>
+            <p className="reg-subtitle">Sign In to your account</p>
           </div>
-          <h2 style={{ fontSize: '1.5rem' }}>Masuk ke Rumah Hewan</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.4rem' }}>
-            Selamat datang kembali! Silahkan login.
+
+          {error && <div className="reg-error">{error}</div>}
+
+          <form onSubmit={handleSubmit}>
+            <div className="reg-form-group">
+              <label className="reg-label">Email</label>
+              <input 
+                type="email" 
+                className="reg-input" 
+                placeholder="Enter your email"
+                value={email} 
+                onChange={e => setEmail(e.target.value)} 
+                required 
+              />
+            </div>
+            
+            <div className="reg-form-group">
+              <label className="reg-label">Password</label>
+              <input 
+                type="password" 
+                className="reg-input" 
+                placeholder="Enter your password"
+                value={password} 
+                onChange={e => setPassword(e.target.value)} 
+                required 
+              />
+            </div>
+
+            <button type="submit" className="reg-btn" disabled={loading}>
+              {loading ? 'Processing...' : 'Sign In'}
+            </button>
+          </form>
+
+          <p className="reg-footer-text">
+            Don't have account? <Link to="/register" className="reg-link">Sign up</Link>
           </p>
         </div>
-
-        {error && <div className="alert alert-error">{error}</div>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label className="form-label">Email</label>
-            <div className="form-input-icon">
-              <Mail size={17} />
-              <input type="email" className="form-input" placeholder="email@contoh.com"
-                value={email} onChange={e => setEmail(e.target.value)} required />
-            </div>
-          </div>
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <div className="form-input-icon">
-              <Lock size={17} />
-              <input type="password" className="form-input" placeholder="••••••••"
-                value={password} onChange={e => setPassword(e.target.value)} required />
-            </div>
-          </div>
-          <button type="submit" className="btn btn-primary" disabled={loading}
-            style={{ width: '100%', marginTop: '0.5rem', padding: '0.85rem' }}>
-            {loading ? 'Memproses...' : 'Masuk'}
-          </button>
-        </form>
-
-        <p style={{ textAlign: 'center', marginTop: '1.75rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-          Belum punya akun?{' '}
-          <Link to="/register" style={{ color: 'var(--primary)', fontWeight: 600 }}>Daftar sekarang</Link>
-        </p>
       </div>
     </div>
   );
