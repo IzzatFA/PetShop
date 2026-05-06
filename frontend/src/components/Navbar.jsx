@@ -63,7 +63,7 @@ const Navbar = () => {
                   <LayoutDashboard size={18} /> Admin
                 </Link>
               )}
-              <Link to="/dashboard" className="user-link">
+              <Link to="/profile" className="user-link">
                 <User size={18} /> {user.name}
               </Link>
               <button onClick={handleLogout} className="logout-btn">

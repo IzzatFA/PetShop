@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Calendar, Weight, PawPrint, Heart, Hand } from 'lucide-react';
-import Navbar from './components/Navbar';
+import Navbar from '../../components/Navbar';
 import AdoptionModal from './components/AdoptionModal';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../services/api';
@@ -72,7 +72,9 @@ export default function PetDetail() {
 
   return (
     <div className="pd-page-wrapper">
-      <Navbar />
+      <div className='navbar-container'>
+        <Navbar />
+      </div>
       
       <div className="container">
         <button className="pd-back-btn" onClick={() => navigate(-1)}>
