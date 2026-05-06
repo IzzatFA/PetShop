@@ -4,7 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import UserDashboard from './pages/UserDashboard';
+
 import DaftarHewan from './pages/DaftarHewan';
 import PetDetail from './pages/DaftarHewan/PetDetail';
 import AlurAdopsi from './pages/AlurAdopsi';
@@ -42,7 +42,7 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
 
       {/* User */}
-      <Route path="/dashboard" element={<RequireAuth><UserDashboard /></RequireAuth>} />
+
 
       {/* Admin */}
       <Route path="/admin" element={<RequireAdmin><AdminLayout /></RequireAdmin>}>

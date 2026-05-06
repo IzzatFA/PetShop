@@ -1,0 +1,52 @@
+.main-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.85); /* Sesuai variabel dark mode di index.css */
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.logo-icon-wrapper {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text-primary {
+  color: var(--primary);
+}
+
+.nav-auth-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Override khusus untuk tombol logout agar tetap merah */
+.btn-logout {
+  color: var(--danger) !important;
+}

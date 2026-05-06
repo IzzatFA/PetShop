@@ -11,23 +11,43 @@ export default function AlurAdopsi() {
   const faqList = [
     {
       q: "Apakah hewan sudah divaksin?",
-      a: "Sebagian besar hewan sudah mendapatkan vaksin dasar, namun detailnya bisa dilihat di profil masing-masing."
+      a: "Sebagian besar hewan sudah mendapatkan vaksin dasar. Detail vaksin dapat dilihat pada profil masing-masing hewan."
     },
     {
-      q: "Apakah hewan sudah divaksin?",
-      a: "Sebagian besar hewan sudah mendapatkan vaksin dasar, namun detailnya bisa dilihat di profil masing-masing."
+      q: "Apakah hewan boleh langsung dibawa pulang?",
+      a: "Bisa, setelah proses adopsi disetujui dan data adopter berhasil diverifikasi oleh admin."
     },
     {
-      q: "Apakah hewan sudah divaksin?",
-      a: "Sebagian besar hewan sudah mendapatkan vaksin dasar, namun detailnya bisa dilihat di profil masing-masing."
+      q: "Apakah ada biaya adopsi?",
+      a: "Ya, beberapa hewan memiliki biaya adopsi untuk membantu biaya vaksin, makanan, dan perawatan sebelumnya."
     },
     {
-      q: "Apakah hewan sudah divaksin?",
-      a: "Sebagian besar hewan sudah mendapatkan vaksin dasar, namun detailnya bisa dilihat di profil masing-masing."
+      q: "Bagaimana proses adopsinya?",
+      a: "Pengguna dapat memilih hewan, mengisi formulir adopsi, lalu menunggu konfirmasi dari admin atau shelter."
     },
     {
-      q: "Apakah hewan sudah divaksin?",
-      a: "Sebagian besar hewan sudah mendapatkan vaksin dasar, namun detailnya bisa dilihat di profil masing-masing."
+      q: "Apakah hewan sudah steril?",
+      a: "Tidak semua hewan sudah steril. Informasi steril atau non-steril tersedia pada halaman detail hewan."
+    },
+    {
+      q: "Bisakah saya mengadopsi lebih dari satu hewan?",
+      a: "Bisa, selama calon adopter dinilai mampu memberikan perawatan yang layak untuk seluruh hewan."
+    },
+    {
+      q: "Apa syarat untuk mengadopsi hewan?",
+      a: "Calon adopter harus memiliki identitas valid, lingkungan yang aman, dan komitmen merawat hewan dengan baik."
+    },
+    {
+      q: "Apakah tersedia fitur konsultasi sebelum adopsi?",
+      a: "Ya, pengguna dapat menghubungi admin atau shelter untuk bertanya mengenai karakter dan kebutuhan hewan."
+    },
+    {
+      q: "Bagaimana jika setelah adopsi saya tidak bisa merawat hewan?",
+      a: "Disarankan untuk segera menghubungi pihak shelter agar hewan dapat ditangani dengan aman dan tidak terlantar."
+    },
+    {
+      q: "Apakah hewan yang ditampilkan selalu tersedia?",
+      a: "Tidak selalu. Status hewan dapat berubah sewaktu-waktu jika sudah diadopsi oleh pengguna lain."
     }
   ];
 

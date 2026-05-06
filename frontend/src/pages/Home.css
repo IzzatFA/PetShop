@@ -58,7 +58,7 @@
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, filter 0.3s ease, transform 0.2s ease;
 }
 
 .hero-btn:hover {

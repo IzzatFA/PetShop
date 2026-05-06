@@ -1,11 +1,11 @@
 import { useAuth } from '../context/AuthContext';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PawPrint, LogOut, User, LayoutDashboard } from 'lucide-react';
+import './Navbar.css'; // Pastikan import file barunya
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLogout = () => {
     logout();
@@ -13,25 +13,16 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{
-      position: 'sticky', top: 0, zIndex: 100,
-      background: 'rgba(15,23,42,0.85)',
-      backdropFilter: 'blur(16px)',
-      borderBottom: '1px solid var(--border)'
-    }}>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Outfit', fontWeight: 700, fontSize: '1.25rem' }}>
-          <div style={{
-            width: 34, height: 34, borderRadius: 8,
-            background: 'linear-gradient(135deg, var(--primary), var(--accent))',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}>
+    <nav className="main-navbar">
+      <div className="container nav-container">
+        <Link to="/" className="nav-logo">
+          <div className="logo-icon-wrapper">
             <PawPrint size={18} color="#fff" />
           </div>
-          <span>Rumah<span style={{ color: 'var(--primary)' }}>Hewan</span></span>
+          <span>Rumah<span className="logo-text-primary">Hewan</span></span>
         </Link>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div className="nav-auth-group">
           {user ? (
             <>
               {user.role === 'admin' && (
@@ -42,8 +33,11 @@ export default function Navbar() {
               <Link to="/dashboard" className="btn btn-outline btn-sm">
                 <User size={15} /> {user.name}
               </Link>
-              <button onClick={handleLogout} className="btn btn-icon btn-outline" title="Logout"
-                style={{ color: 'var(--danger)' }}>
+              <button 
+                onClick={handleLogout} 
+                className="btn btn-icon btn-outline btn-logout" 
+                title="Logout"
+              >
                 <LogOut size={17} />
               </button>
             </>

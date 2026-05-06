@@ -12,7 +12,7 @@
   min-height: 100vh;
   font-family: 'Outfit', 'Inter', sans-serif;
   color: var(--dh-text);
-  padding-bottom: 0; /* Let footer handle bottom spacing */
+  padding-bottom: 0; 
 }
 
 .daftar-hewan-page .container {
