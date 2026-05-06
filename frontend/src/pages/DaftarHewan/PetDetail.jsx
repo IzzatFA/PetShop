@@ -42,14 +42,13 @@ export default function PetDetail() {
   if (loading) return <div className="pd-page-wrapper" style={{ display: 'flex', justifyContent: 'center', paddingTop: '20vh' }}>Memuat data hewan...</div>;
   if (!pet) return <div className="pd-page-wrapper" style={{ display: 'flex', justifyContent: 'center', paddingTop: '20vh' }}>Hewan tidak ditemukan.</div>;
 
-  const imageUrl = pet.image_url 
-    ? (pet.image_url.startsWith('http') ? pet.image_url : `http://localhost:3000${pet.image_url}`) 
-    : 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80';
+  const imageUrl = pet.image_url
+  ? pet.image_url
+  : 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80';
 
   // Mock data for fields not in DB
   const mockWeight = "5 kg";
   const mockGender = pet.gender || "Female";
-  const mockTags = ["Sudah Vaksin", "Bersertifikat", "Calm", "Sudah Steril"];
 
   const handleAdoptSubmit = async (formData) => {
     if (!user) {
@@ -127,16 +126,7 @@ export default function PetDetail() {
               {pet.description || `${pet.breed} adalah hewan peliharaan yang siap diadopsi. Hubungi kami untuk informasi lebih lanjut.`}
             </p>
 
-            <div className="pd-tags-wrap">
-              {mockTags.map((tag, idx) => (
-                <div key={idx} className="pd-tag">{tag}</div>
-              ))}
-            </div>
-
             <div className="pd-actions">
-              <button className="pd-btn-heart">
-                <Heart size={24} />
-              </button>
               <button className="pd-btn-adopt" onClick={() => {
                 if (!user) {
                   alert("Silakan login terlebih dahulu untuk mengajukan adopsi.");
