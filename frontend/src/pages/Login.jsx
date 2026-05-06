@@ -76,12 +76,12 @@ export default function Login() {
             </div>
 
             <button type="submit" className="reg-btn" disabled={loading}>
-              {loading ? 'Processing...' : 'Sign In'}
+              {loading ? 'Processing...' : 'Log In'}
             </button>
           </form>
 
           <p className="reg-footer-text">
-            Don't have account? <Link to="/register" className="reg-link">Sign up</Link>
+            Tidak punya akun? <Link to="/register" className="reg-link">Sign up</Link>
           </p>
         </div>
       </div>

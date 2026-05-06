@@ -63,6 +63,11 @@
 
 .hero-btn:hover {
   opacity: 0.9;
+  transform: scale(1.03);
+}
+
+.hero-btn:active{
+  transform: scale(0.95);
 }
 
 .hero-image {
@@ -76,6 +81,7 @@
   max-width: 100%;
   max-height: 600px;
   object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
 }
 
 /* ABOUT SECTION */
@@ -255,6 +261,10 @@
 .adopter-detail {
   font-size: 13px;
   color: var(--dh-text-light);
+}
+
+a.reg-link {
+  text-decoration: underline !important;
 }
 
 @media (max-width: 768px) {

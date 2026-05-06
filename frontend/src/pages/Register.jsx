@@ -100,7 +100,7 @@ export default function Register() {
           </form>
 
           <p className="reg-footer-text">
-            Already have account? <Link to="/login" className="reg-link">Sign in</Link>
+            Sudah punya akun? <Link to="/login" className="reg-link">Log in</Link>
           </p>
         </div>
       </div>

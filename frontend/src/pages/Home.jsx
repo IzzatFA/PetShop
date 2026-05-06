@@ -10,6 +10,38 @@ import hero2 from '../assets/hero_beranda2.png';
 import './DaftarHewan/DaftarHewan.css';
 import './Home.css';
 
+//placeholder buat backend
+const testimonialsData = [
+  {
+    id: 1,
+    name: "Inna Irma",
+    stars: 5,
+    petType: "Kucing",
+    date: "Maret 2026",
+    comment: "Prosesnya gampang dan transparan. Timnya sabar banget jawab pertanyaan kami. Sekarang Oyen udah jadi anggota keluarga yang paling disayang.",
+    avatar: "I"
+  },
+  {
+    id: 2,
+    name: "Andika",
+    stars: 4, 
+    petType: "Anjing",
+    date: "Januari 2026",
+    comment: "Saya ragu awalnya, tapi Rumah Hewan kasih panduan lengkap dari awal sampai akhir. Rocky sekarang sehat dan aktif!",
+    avatar: "A"
+  },
+  {
+    id: 3,
+    name: "Mizuki",
+    stars: 1, 
+    petType: "Landak",
+    date: "Mei 2026",
+    comment: "Mirai derikai dekinai desho, marude saito shimatte Bake no hana!",
+    avatar: "M"
+  },
+  // Tambahkan data lainnya di sini
+];
+
 export default function Home() {
   return (
     <div className="home-page">
@@ -93,47 +125,43 @@ export default function Home() {
       <section className="home-section" style={{ paddingBottom: '120px' }}>
         <div className="home-container">
           <h2 className="section-title center">Cerita Adopter</h2>
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="stars">
-                {[...Array(5)].map((_, i) => <Star key={i} size={20} fill="currentColor" stroke="none" />)}
-              </div>
-              <p className="testimonial-text">"Prosesnya gampang dan transparan. Timnya sabar banget jawab pertanyaan kami. Sekarang Oyen udah jadi anggota keluarga yang paling disayang."</p>
-              <div className="adopter-info">
-                <div className="adopter-avatar">I</div>
-                <div>
-                  <div className="adopter-name">Inna Irma</div>
-                  <div className="adopter-detail">Adopsi Kucing - Maret 2026</div>
+          {testimonialsData.length > 0 ? (
+            
+            /* FIX: Tag pembuka <div className="testimonials-grid"> dipindah ke sini (setelah tanda tanya) */
+            <div className="testimonials-grid">
+              {testimonialsData.map((item) => (
+                <div className="testimonial-card" key={item.id}>
+                  <div className="stars">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        size={20} 
+                        fill={i < item.stars ? "currentColor" : "none"} 
+                        stroke="currentColor" 
+                      />
+                    ))}
+                  </div>
+                  
+                  <p className="testimonial-text">"{item.comment}"</p>
+                  
+                  <div className="adopter-info">
+                    <div className="adopter-avatar">{item.avatar}</div>
+                    <div>
+                      <div className="adopter-name">{item.name}</div>
+                      <div className="adopter-detail">
+                        Adopsi {item.petType} - {item.date}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-            <div className="testimonial-card">
-              <div className="stars">
-                {[...Array(5)].map((_, i) => <Star key={i} size={20} fill="currentColor" stroke="none" />)}
-              </div>
-              <p className="testimonial-text">"Saya ragu awalnya, tapi Rumah Hewan kasih panduan lengkap dari awal sampai akhir. Rocky sekarang sehat dan aktif, nggak nyesel sama sekali adopsi di sini!"</p>
-              <div className="adopter-info">
-                <div className="adopter-avatar">A</div>
-                <div>
-                  <div className="adopter-name">Andika</div>
-                  <div className="adopter-detail">Adopsi Anjing - Januari 2026</div>
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="stars">
-                {[...Array(5)].map((_, i) => <Star key={i} size={20} fill="currentColor" stroke="none" />)}
-              </div>
-              <p className="testimonial-text">"Seneng banget ada platform kayak gini. Dulu nggak tahu harus cari ke mana, Sekarang sudah punya dua kucing dari Rumah Hewan."</p>
-              <div className="adopter-info">
-                <div className="adopter-avatar">B</div>
-                <div>
-                  <div className="adopter-name">Bintang</div>
-                  <div className="adopter-detail">Adopsi Kucing - Februari 2026</div>
-                </div>
-              </div>
-            </div>
-          </div>
+            
+          ) : (
+            <p style={{ textAlign: 'center', marginTop: '48px', color: 'var(--dh-text-light)' }}>
+              Belum ada cerita adopter untuk saat ini.
+            </p>
+          )}
         </div>
       </section>
 
