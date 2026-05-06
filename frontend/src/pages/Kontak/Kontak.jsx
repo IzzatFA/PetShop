@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../DaftarHewan/components/Navbar';
+import Navbar from '../../components/Navbar';
 import Footer from '../DaftarHewan/components/Footer';
 import { PawPrint, Mail, Phone, MapPin } from 'lucide-react';
 import '../DaftarHewan/DaftarHewan.css';
@@ -11,7 +11,9 @@ import heroBg2 from '../../assets/hero_kontak2.png';
 export default function Kontak() {
   return (
     <div className="kt-page">
-      <Navbar />
+      <div className='navbar-container'>
+        <Navbar />
+      </div>
 
       <section className="kt-hero">
         <div 

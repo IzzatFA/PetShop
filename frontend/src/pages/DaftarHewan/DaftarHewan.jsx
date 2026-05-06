@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
+import Navbar from '../../components/Navbar';
 import Hero from './components/Hero';
 import FilterBar from './components/FilterBar';
 import PetCard from './components/PetCard';
@@ -41,7 +41,10 @@ export default function DaftarHewan() {
 
   return (
     <div className="daftar-hewan-page">
-      <Navbar />
+      <div className='navbar-container'>
+        <Navbar />
+      </div>
+      
       <Hero />
       <FilterBar 
         activeCategory={activeCategory}

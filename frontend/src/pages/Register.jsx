@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import { PawPrint } from 'lucide-react';
-import Navbar from './DaftarHewan/components/Navbar';
+import Navbar from '../components/Navbar';;
 import logoPaw from '../assets/logo/logo2-removebg-preview 2.png';
 import hero1 from '../assets/hero_sig-up1.png';
 import hero2 from '../assets/hero_sig-up2.png';

@@ -1,52 +1,235 @@
-.main-navbar {
+.dh-navbar {
+  /* Wrapper utama */
   position: sticky;
   top: 0;
-  z-index: 100;
-  background: rgba(15, 23, 42, 0.85); /* Sesuai variabel dark mode di index.css */
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--border);
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+
+  background: linear-gradient(
+  180deg,
+  rgba(242, 221, 212, 0.4) 0%,
+  rgba(255, 187, 162, 0.5) 100%
+);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 10px rgba(92, 40, 34, 0.08);
 }
 
-.nav-container {
+.nav-inner {
+  /* Container tengah */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+
+  height: 80px;
+  padding: 0 24px;
 }
 
-.nav-logo {
+.navbar-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 1.25rem;
+  gap: 12px;
   text-decoration: none;
-  color: var(--text-primary);
 }
 
-.logo-icon-wrapper {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+.logo-icon {
+  width: 44px;
+  height: 44px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
 }
 
-.logo-text-primary {
-  color: var(--primary);
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+
+  font-weight: 800;
+  color: var(--dh-primary);
 }
 
-.nav-auth-group {
+.logo-title {
+  font-size: 18px;
+}
+
+.logo-subtitle {
+  font-size: 16px;
+}
+
+.navbar-links {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+
+  list-style: none;
+
+  gap: 40px;
+
+  margin: 0;
+  padding: 0;
 }
 
-/* Override khusus untuk tombol logout agar tetap merah */
-.btn-logout {
-  color: var(--danger) !important;
+.navbar-links a {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dh-primary);
+
+  text-decoration: none;
+
+  opacity: 0.8;
+
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+
+  transition: all 0.2s;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active {
+  opacity: 1;
+  font-weight: 700;
+  border-bottom: 2px solid var(--dh-primary);
+}
+
+/* Auth Group */
+.user-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.admin-link,
+.user-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--dh-primary);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+
+  color: #d9534f;
+
+  cursor: pointer;
+
+  display: flex;
+
+  transition: transform 0.2s;
+}
+
+.logout-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Button */
+.dh-btn-solid {
+  background-color: var(--dh-primary);
+  color: white !important;
+
+  padding: 10px 24px;
+
+  border-radius: var(--dh-radius-pill);
+
+  font-weight: 600;
+  font-size: 14px;
+
+  border: none;
+  cursor: pointer;
+
+  text-decoration: none;
+
+  transition: opacity 0.2s;
+}
+
+.dh-btn-solid:hover {
+  opacity: 0.9;
+}
+
+.mobile-menu-btn {
+  display: none;
+
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  z-index: 60;
+}
+
+.mobile-actions-item {
+  display: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-inner {
+    padding: 0 20px;
+  }
+
+  .navbar-actions {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .navbar-links {
+    position: fixed;
+
+    top: 0;
+    right: -100%;
+
+    width: 280px;
+    height: 100vh;
+
+    background-color: #FFF5F0;
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 100px 32px;
+
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+
+    transition: right 0.3s ease;
+
+    z-index: 55;
+
+    gap: 24px;
+  }
+
+  .navbar-links.mobile-active {
+    right: 0;
+  }
+
+  .mobile-actions-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 24px;
+
+    width: 100%;
+  }
+
+  .mobile-actions-item .dh-btn-solid {
+    text-align: center;
+  }
 }

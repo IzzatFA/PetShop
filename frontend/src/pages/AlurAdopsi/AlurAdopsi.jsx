@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../DaftarHewan/components/Navbar';
+import Navbar from '../../components/Navbar';
 import Footer from '../DaftarHewan/components/Footer';
 import { PawPrint, Search, Cat, FileEdit } from 'lucide-react';
 import '../DaftarHewan/DaftarHewan.css';
@@ -53,7 +53,9 @@ export default function AlurAdopsi() {
 
   return (
     <div className="aa-page">
-      <Navbar />
+      <div className='navbar-container'>
+        <Navbar />
+      </div>
 
       <section className="aa-hero">
         <div 

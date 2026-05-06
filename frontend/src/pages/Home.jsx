@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star, Heart, ShieldCheck, PawPrint } from 'lucide-react';
-import Navbar from './DaftarHewan/components/Navbar';
+import Navbar from '../components/Navbar';
 import Footer from './DaftarHewan/components/Footer';
 import hero1 from '../assets/hero_beranda1.png';
 import hero2 from '../assets/hero_beranda2.png';
@@ -45,7 +45,9 @@ const testimonialsData = [
 export default function Home() {
   return (
     <div className="home-page">
-      <Navbar />
+      <div className='navbar-container'>
+        <Navbar />
+      </div>
 
       {/* HERO SECTION */}
       <section className="home-section" style={{ padding: 0 }}>

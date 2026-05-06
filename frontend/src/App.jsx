@@ -5,10 +5,10 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
-import DaftarHewan from './pages/DaftarHewan';
+import DaftarHewan from './pages/DaftarHewan/DaftarHewan';
 import PetDetail from './pages/DaftarHewan/PetDetail';
-import AlurAdopsi from './pages/AlurAdopsi';
-import Kontak from './pages/Kontak';
+import AlurAdopsi from './pages/AlurAdopsi/AlurAdopsi';
+import Kontak from './pages/Kontak/Kontak';
 
 import AdminLayout from './components/AdminLayout';
 import AdminDashboard from './pages/admin/Dashboard';
@@ -40,9 +40,6 @@ function AppRoutes() {
       <Route path="/kontak" element={<Kontak />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-
-      {/* User */}
-
 
       {/* Admin */}
       <Route path="/admin" element={<RequireAdmin><AdminLayout /></RequireAdmin>}>

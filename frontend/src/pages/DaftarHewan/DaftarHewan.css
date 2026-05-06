@@ -12,11 +12,23 @@
   min-height: 100vh;
   font-family: 'Outfit', 'Inter', sans-serif;
   color: var(--dh-text);
-  padding-bottom: 0; 
 }
 
 .daftar-hewan-page .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+.daftar-hewan-results {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 2rem;
+  min-height: 50vh;
+}
+
+.navbar-container{
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
