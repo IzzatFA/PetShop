@@ -66,9 +66,6 @@ export default function AdminLayout() {
 
       {/* Main */}
       <main className="admin-main">
-        <h1 className='admin-header'>
-          Dashboard
-        </h1>
         <div className="page-content">
           <Outlet />
         </div>
