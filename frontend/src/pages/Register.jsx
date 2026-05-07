@@ -37,7 +37,9 @@ export default function Register() {
 
   return (
     <div className="reg-page">
-      <Navbar />
+      <div className='navbar-container'>
+        <Navbar />
+      </div>
 
       {/* Placeholder images from internet for dog and cat cutouts */}
       <img src={hero1} alt="Dog" className="reg-bg-dog" />
