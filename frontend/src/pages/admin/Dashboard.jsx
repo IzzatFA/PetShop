@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../../services/api';
 import { PawPrint, Tags, HeartHandshake, CalendarClock, TrendingUp } from 'lucide-react';
+import './Dashboard.css'; // Pastikan path ini sesuai
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ animals: 0, categories: 0, adoptions: 0, appointments: 0 });
@@ -30,52 +31,44 @@ export default function AdminDashboard() {
   }, []);
 
   const cards = [
-    { label: 'Total Hewan',      val: stats.animals,      icon: PawPrint,       color: '--primary',   rgb: '99,102,241' },
+    { label: 'Total Hewan',       val: stats.animals,      icon: PawPrint,       color: '--primary',   rgb: '92,40,34' }, // Disesuaikan dengan warna tema baru
     { label: 'Kategori',          val: stats.categories,   icon: Tags,           color: '--success',   rgb: '16,185,129' },
-    { label: 'Permintaan Adopsi', val: stats.adoptions,    icon: HeartHandshake, color: '--secondary', rgb: '236,72,153' },
-    { label: 'Janji Temu',        val: stats.appointments, icon: CalendarClock,  color: '--warning',   rgb: '245,158,11' },
+    { label: 'Permintaan Adopsi', val: stats.adoptions,    icon: HeartHandshake, color: '--warning',   rgb: '245,158,11' },
+    { label: 'Janji Temu',        val: stats.appointments, icon: CalendarClock,  color: '--accent',    rgb: '138,90,82' }, // Disesuaikan dengan warna tema baru
   ];
 
   if (loading) return <div className="empty-state"><p>Memuat dashboard...</p></div>;
 
   return (
     <div className="anim-fade-up">
-      <div className="stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '2rem' }}>
+      <div className="glass welcome-card">
+        <div className="welcome-header">
+          <TrendingUp size={20} color="var(--primary)" />
+          <h3>Selamat Datang di Dashboard Admin</h3>
+        </div>
+      </div>
+
+      <div className="dashboard-grid stagger">
         {cards.map((c, i) => {
           const Icon = c.icon;
           return (
-            <div key={i} className="glass" style={{
-              padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem',
-              transition: 'var(--transition)', opacity: 0
-            }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
-              <div style={{
-                width: 50, height: 50, borderRadius: 12,
-                background: `rgba(${c.rgb}, 0.12)`,
-                color: `var(${c.color})`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
-              }}>
+            <div key={i} className="glass stat-card">
+              <div 
+                className="stat-icon-wrapper" 
+                style={{
+                  background: `rgba(${c.rgb}, 0.12)`,
+                  color: `var(${c.color})`
+                }}
+              >
                 <Icon size={22} />
               </div>
               <div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '2px' }}>{c.label}</p>
-                <h3 style={{ fontSize: '1.6rem', margin: 0 }}>{c.val}</h3>
+                <p className="stat-label">{c.label}</p>
+                <p className="stat-value">{c.val}</p>
               </div>
             </div>
           );
         })}
-      </div>
-
-      <div className="glass" style={{ padding: '2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-          <TrendingUp size={20} color="var(--primary)" />
-          <h3>Selamat Datang di Dashboard Admin</h3>
-        </div>
-        <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-          Gunakan menu navigasi di sebelah kiri untuk mengelola data hewan, kategori, permintaan adopsi, dan janji temu.
-          Semua data terhubung langsung ke database melalui API lokal di <code style={{ color: 'var(--primary)' }}>localhost:3000</code>.
-        </p>
       </div>
     </div>
   );

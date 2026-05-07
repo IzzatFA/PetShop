@@ -1,55 +1,133 @@
 .dh-pet-card {
-  background-color: white;
-  border-radius: 24px;
+  background: rgba(255,255,255,0.82);
+
+  border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(92, 40, 34, 0.05);
-  transition: transform 0.2s;
+
   display: flex;
   flex-direction: column;
+
+  border: 1px solid rgba(92, 40, 34, 0.08);
+
+  box-shadow:
+    0 8px 24px rgba(92, 40, 34, 0.08);
+
+  backdrop-filter: blur(12px);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .dh-pet-card:hover {
   transform: translateY(-8px);
+
+  box-shadow:
+    0 16px 40px rgba(92, 40, 34, 0.14);
 }
 
+/* IMAGE */
 .dh-pet-image-container {
-  height: 260px;
   width: 100%;
+  height: 260px;
+
+  overflow: hidden;
+
+  background: #f4f1ef;
 }
 
 .dh-pet-image {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
-  background-color: #f0f0f0;
+
+  transition:
+    transform 0.4s ease,
+    filter 0.3s ease;
 }
 
+.dh-pet-card:hover .dh-pet-image {
+  transform: scale(1.05);
+}
+
+/* CONTENT */
 .dh-pet-info {
-  padding: 16px 20px 24px;
+  padding: 20px 22px 26px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+
+  gap: 14px;
 }
 
+/* NAME */
 .dh-pet-name {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--dh-primary);
   margin: 0;
+
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+
+  color: var(--primary);
+
+  text-align: center;
+
+  letter-spacing: -0.5px;
 }
 
+/* BADGES */
 .dh-pet-badges {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 10px;
 }
 
 .dh-pet-badge {
-  padding: 4px 16px;
-  border-radius: var(--dh-radius-pill);
-  border: 1px solid var(--dh-primary);
-  font-size: 13px;
-  color: var(--dh-primary);
-  background-color: white;
-  font-weight: 500;
+  padding: 6px 16px;
+
+  border-radius: 999px;
+
+  border: 1px solid rgba(92, 40, 34, 0.12);
+
+  background: rgba(92, 40, 34, 0.05);
+
+  color: var(--primary);
+
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  backdrop-filter: blur(6px);
+}
+
+/* OPTIONAL TAG COLORS */
+.dh-pet-badge.gender {
+  background: rgba(92, 40, 34, 0.08);
+}
+
+.dh-pet-badge.age {
+  background: rgba(239, 199, 182, 0.35);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .dh-pet-image-container {
+    height: 220px;
+  }
+
+  .dh-pet-info {
+    padding: 18px 18px 22px;
+  }
+
+  .dh-pet-name {
+    font-size: 1.2rem;
+  }
+
+  .dh-pet-badge {
+    font-size: 0.75rem;
+    padding: 5px 14px;
+  }
 }
