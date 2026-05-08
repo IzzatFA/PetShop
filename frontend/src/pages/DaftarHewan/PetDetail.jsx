@@ -66,6 +66,7 @@ export default function PetDetail() {
       });
       alert("Permintaan adopsi berhasil dikirim! Mohon tunggu persetujuan tim kami.");
       setIsModalOpen(false);
+      navigate('/daftar-hewan');
     } catch (err) {
       alert(err.response?.data?.error || 'Gagal mengajukan adopsi');
     } finally {

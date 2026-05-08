@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
-import { PawPrint } from 'lucide-react';
 import Navbar from '../components/Navbar';;
 import logoPaw from '../assets/logo/logo2-removebg-preview 2.png';
 import hero1 from '../assets/hero_sig-up1.png';
@@ -10,6 +9,8 @@ import hero2 from '../assets/hero_sig-up2.png';
 
 import './DaftarHewan/DaftarHewan.css';
 import './Register.css';
+
+const isValidPassword = (password) => /^(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -23,6 +24,12 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!isValidPassword(form.password)) {
+      setError('Password minimal 8 karakter dan harus memiliki karakter spesial');
+      return;
+    }
+
     setLoading(true);
     try {
       const { data } = await api.post('/api/users/register', form);
@@ -92,7 +99,9 @@ export default function Register() {
                 value={form.password} 
                 onChange={e => set('password', e.target.value)} 
                 required 
-                minLength={6} 
+                minLength={8}
+                pattern="^(?=.*[^A-Za-z0-9]).{8,}$"
+                title="Password minimal 8 karakter dan harus memiliki karakter spesial"
               />
             </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
@@ -41,7 +41,7 @@ export default function EditProfile() {
     setError('');
     setSuccess('');
 
-    if (form.password !== confirmPassword) {
+    if (form.password && form.password !== confirmPassword) {
       setError('Konfirmasi password tidak cocok');
       return;
     }
@@ -49,8 +49,16 @@ export default function EditProfile() {
     setLoading(true);
 
     try {
-      // GANTI endpoint sesuai backend kamu
-      const { data } = await api.put('/api/users/profile', form);
+      const payload = {
+        name: form.name,
+        email: form.email,
+      };
+
+      if (form.password) {
+        payload.password = form.password;
+      }
+
+      const { data } = await api.put(`/api/users/${user.id}`, payload);
 
       // update user di context
       login(data.user);

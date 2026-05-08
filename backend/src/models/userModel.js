@@ -25,9 +25,32 @@ const findUserById = async (id) => {
   return result.rows[0];
 };
 
+const updateUser = async (id, data) => {
+  const { name, email, password } = data;
+  let hashedPassword = null;
+
+  if (password) {
+    const salt = await bcrypt.genSalt(10);
+    hashedPassword = await bcrypt.hash(password, salt);
+  }
+
+  const result = await db.query(
+    `UPDATE users
+     SET name = COALESCE($1, name),
+         email = COALESCE($2, email),
+         password = COALESCE($3, password)
+     WHERE id = $4
+     RETURNING *`,
+    [name, email, hashedPassword, id]
+  );
+
+  return result.rows[0];
+};
+
 export default {
   createUser,
   findUserByEmail,
   findUserById,
+  updateUser,
   comparePassword,
 };
