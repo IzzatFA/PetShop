@@ -12,8 +12,8 @@ const index = async (req, res) => {
 
 const store = async (req, res) => {
   try {
-    const { user_id, animal_id } = req.body;
-    const adoption = await adoptionModel.createAdoption(user_id, animal_id);
+    const { user_id, animal_id, ...adopterData } = req.body;
+    const adoption = await adoptionModel.createAdoption(user_id, animal_id, adopterData);
     res.status(201).json({ message: 'Adoption request submitted', adoption });
   } catch (error) {
     res.status(500).json({ error: 'Failed to submit adoption request', details: error.message });

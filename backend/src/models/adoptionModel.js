@@ -1,9 +1,12 @@
 import db from '../config/db.js';
 
-const createAdoption = async (user_id, animal_id) => {
+const createAdoption = async (user_id, animal_id, data = {}) => {
+  const { name, email, phone, address, experience, experienceDetail } = data;
   const result = await db.query(
-    'INSERT INTO adoptions (user_id, animal_id) VALUES ($1, $2) RETURNING *',
-    [user_id, animal_id]
+    `INSERT INTO adoptions 
+     (user_id, animal_id, adopter_name, adopter_email, adopter_phone, adopter_address, experience, experience_detail) 
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+    [user_id, animal_id, name, email, phone, address, experience, experienceDetail]
   );
   return result.rows[0];
 };

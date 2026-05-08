@@ -59,7 +59,11 @@ export default function PetDetail() {
 
     setSubmitting(true);
     try {
-      await api.post('/api/adoptions', { user_id: user.id, animal_id: pet.id });
+      await api.post('/api/adoptions', { 
+        user_id: user.id, 
+        animal_id: pet.id,
+        ...formData
+      });
       alert("Permintaan adopsi berhasil dikirim! Mohon tunggu persetujuan tim kami.");
       setIsModalOpen(false);
     } catch (err) {

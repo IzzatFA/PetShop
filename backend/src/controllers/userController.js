@@ -18,11 +18,18 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await userModel.findUserByEmail(email);
     
-    if (!user || user.password !== password) {
+    if (!user) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    res.status(200).json({ message: 'Login successful', user });
+    const isMatch = await userModel.comparePassword(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    // Exclude password from response
+    const { password: _, ...userWithoutPassword } = user;
+    res.status(200).json({ message: 'Login successful', user: userWithoutPassword });
   } catch (error) {
     res.status(500).json({ error: 'Failed to login', details: error.message });
   }
