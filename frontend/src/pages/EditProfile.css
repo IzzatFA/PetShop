@@ -175,4 +175,5 @@
   .reg-bg-dog, .reg-bg-cat {
     display: none; /* Hide background cutouts on mobile to prevent overlapping forms */
   }
+
 }

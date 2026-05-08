@@ -47,10 +47,34 @@ const updateUser = async (id, data) => {
   return result.rows[0];
 };
 
+const deleteUser = async (id) => {
+  const client = await db.connect();
+
+  try {
+    await client.query('BEGIN');
+    await client.query('DELETE FROM appointments WHERE user_id = $1', [id]);
+    await client.query('DELETE FROM adoptions WHERE user_id = $1', [id]);
+
+    const result = await client.query(
+      'DELETE FROM users WHERE id = $1 RETURNING *',
+      [id]
+    );
+
+    await client.query('COMMIT');
+    return result.rows[0];
+  } catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  } finally {
+    client.release();
+  }
+};
+
 export default {
   createUser,
   findUserByEmail,
   findUserById,
   updateUser,
+  deleteUser,
   comparePassword,
 };
