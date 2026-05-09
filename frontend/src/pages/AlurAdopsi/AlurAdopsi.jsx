@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../DaftarHewan/components/Footer';
-import { PawPrint, Search, Cat, FileEdit } from 'lucide-react';
+import { PawPrint, Search, Calendar, FileEdit, Heart } from 'lucide-react';
 import '../DaftarHewan/DaftarHewan.css';
 import './AlurAdopsi.css';
 import logoPaw from '../../assets/logo/logo2-removebg-preview 2.png';
@@ -84,15 +84,21 @@ export default function AlurAdopsi() {
             </div>
             <div className="aa-step-card">
               <div className="aa-step-icon">
-                <Cat size={40} />
+                <FileEdit size={40} />
               </div>
-              <div className="aa-step-text">Klik Adopt</div>
+              <div className="aa-step-text">Isi Formulir<br/>Adopsi</div>
             </div>
             <div className="aa-step-card">
               <div className="aa-step-icon">
-                <FileEdit size={40} />
+                <Calendar size={40} />
               </div>
-              <div className="aa-step-text">Mengisi Form<br/>Appointment</div>
+              <div className="aa-step-text">Atur Jadwal<br/>Janji Temu</div>
+            </div>
+            <div className="aa-step-card">
+              <div className="aa-step-icon">
+                <Heart size={40} />
+              </div>
+              <div className="aa-step-text">Penjemputan<br/>Hewan</div>
             </div>
           </div>
         </section>
