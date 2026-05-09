@@ -61,7 +61,7 @@ export default function Kontak() {
             />
           </div>
 
-          <div className="kt-form-card">
+          {/* <div className="kt-form-card">
             <form onSubmit={e => e.preventDefault()}>
               <div className="kt-form-row">
                 <div className="kt-form-group">
@@ -82,7 +82,7 @@ export default function Kontak() {
               </div>
               <button type="submit" className="kt-submit-btn">Send Message</button>
             </form>
-          </div>
+          </div> */}
         </div>
 
         <div className="kt-map-container">
