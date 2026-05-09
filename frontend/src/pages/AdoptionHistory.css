@@ -166,6 +166,13 @@
   box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
 }
 
+.ah-step.rejected .ah-step-circle {
+  background: #ef1f1f;
+  border-color: #ef1f1f;
+  color: white;
+  box-shadow: 0 0 16px rgba(239, 31, 31, 0.2);
+}
+
 .ah-step-label {
   font-size: 0.9rem;
   font-weight: 600;
@@ -180,6 +187,10 @@
 
 .ah-step.active .ah-step-label {
   color: #ef4444;
+}
+
+.ah-step.rejected .ah-step-label {
+  color: #ef1f1f;
 }
 
 /* Layout Grid */
@@ -232,6 +243,11 @@
 
 .ah-status-badge.approved {
   background: #27ae60;
+  color: white;
+}
+
+.ah-status-badge.rejected {
+  background: #ef1f1f;
   color: white;
 }
 
@@ -418,6 +434,45 @@
   justify-content: center;
   gap: 0.6rem;
   white-space: nowrap;
+}
+
+.ah-rejected-card {
+  border: none;
+  border-radius: 1.5rem;
+  box-shadow: none;
+  padding: 1.5rem 2rem 2rem;
+}
+
+.ah-rejected-icon-wrap {
+  margin-bottom: 0.75rem;
+}
+
+.ah-rejected-emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.ah-rejected-title {
+  font-size: 1.9rem;
+  letter-spacing: 0;
+  margin-bottom: 3rem;
+}
+
+.ah-rejected-info-box {
+  display: block;
+  background: #ffb3b8;
+  border: none;
+  border-radius: 0.85rem;
+  margin: 0;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.ah-rejected-info-box p {
+  color: #ef1f1f;
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0;
 }
 
 .ah-btn-home-success {

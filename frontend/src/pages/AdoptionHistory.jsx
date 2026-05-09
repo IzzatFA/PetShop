@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import Footer from './DaftarHewan/components/Footer';
-import { Check, Calendar, ArrowLeft, Heart, FileSearch, ClipboardList } from 'lucide-react';
+import { Check, Calendar, Heart, FileSearch, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './AdoptionHistory.css';
 import logoPaw from '../assets/logo/logo2-removebg-preview 2.png';
@@ -16,7 +16,6 @@ export default function AdoptionHistory() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [appointmentData, setAppointmentData] = useState({ date: '', time: '09:00 WIB' });
-  const [activeAdoptionId, setActiveAdoptionId] = useState(null);
 
   const fetchHistory = async () => {
     if (!user) {
@@ -41,7 +40,12 @@ export default function AdoptionHistory() {
     fetchHistory();
   }, [user]);
 
-  const handleAppointmentSubmit = async (e, animal_id, adoption_id) => {
+  const isRejectedStatus = (status) => {
+    const normalizedStatus = status ? status.toLowerCase() : '';
+    return normalizedStatus === 'rejected' || normalizedStatus === 'ditolak';
+  };
+
+  const handleAppointmentSubmit = async (e, animal_id) => {
     e.preventDefault();
     try {
       // Remove " WIB" from time if present to ensure PostgreSQL can parse it
@@ -68,6 +72,9 @@ export default function AdoptionHistory() {
     const adStatus = ad.status ? ad.status.toLowerCase() : 'pending';
     const apptStatus = appt?.status ? appt.status.toLowerCase() : 'pending';
 
+    // 0: Rejected -> show rejected state
+    if (isRejectedStatus(adStatus)) return 0;
+
     // 5: Success (Appointment Completed/Approved) -> All 4 steps checked
     // Admin uses 'completed' to mark successful pickup
     if (appt && apptStatus === 'completed') return 5;
@@ -92,9 +99,10 @@ export default function AdoptionHistory() {
       "Penjemputan"
     ];
 
+    const isRejected = currentState === 0;
     // If state is 5, it means all 4 are completed
     const displayState = currentState > 4 ? 5 : currentState;
-    const progressWidth = displayState === 5 ? 100 : (displayState - 1) * 33.33;
+    const progressWidth = displayState === 5 ? 100 : isRejected ? 0 : (displayState - 1) * 33.33;
 
     return (
       <div className="ah-stepper-container">
@@ -103,11 +111,17 @@ export default function AdoptionHistory() {
           {steps.map((label, index) => {
             const stepNum = index + 1;
             // A step is completed if it's less than currentState, OR if currentState is 5 (Success)
-            const status = (stepNum < currentState || currentState === 5) ? 'completed' : stepNum === currentState ? 'active' : 'waiting';
+            const status = isRejected && stepNum === 1
+              ? 'rejected'
+              : (stepNum < currentState || currentState === 5)
+                ? 'completed'
+                : stepNum === currentState
+                  ? 'active'
+                  : 'waiting';
             return (
               <div key={index} className={`ah-step ${status}`}>
                 <div className="ah-step-circle">
-                  {status === 'completed' ? <Check size={24} /> : stepNum}
+                  {status === 'completed' ? <Check size={24} /> : status === 'rejected' ? <X size={26} /> : stepNum}
                 </div>
                 <span className="ah-step-label">{label}</span>
               </div>
@@ -155,6 +169,10 @@ export default function AdoptionHistory() {
             adoptions.map(ad => {
               const state = getAdoptionState(ad);
               const appt = appointments.find(a => a.animal_id === ad.animal_id);
+              const adoptionStatus = ad.status ? ad.status.toLowerCase() : 'pending';
+              const isRejected = isRejectedStatus(adoptionStatus);
+              const statusBadgeClass = isRejected ? 'rejected' : adoptionStatus === 'approved' ? 'approved' : 'pending';
+              const statusBadgeText = isRejected ? 'Gagal Diverifikasi' : adoptionStatus === 'approved' ? 'Lolos Diverifikasi' : 'Sedang Diverifikasi';
 
               return (
                 <div key={ad.id} className="ah-adoption-item anim-fade-up">
@@ -172,8 +190,8 @@ export default function AdoptionHistory() {
                           </div>
                         )}
                       </div>
-                      <div className={`ah-status-badge ${ad.status?.toLowerCase() === 'approved' ? 'approved' : 'pending'}`}>
-                        {ad.status?.toLowerCase() === 'approved' ? 'Lolos Diverifikasi' : 'Sedang Diverifikasi'}
+                      <div className={`ah-status-badge ${statusBadgeClass}`}>
+                        {statusBadgeText}
                       </div>
                       <h3 className="ah-pet-name">Adopsi {ad.breed}</h3>
                       <p className="ah-pet-date">
@@ -183,6 +201,21 @@ export default function AdoptionHistory() {
 
                     {/* Right side: Status Content */}
                     <div className="ah-status-content">
+                      {state === 0 && (
+                        <div className="ah-success-card ah-rejected-card anim-fade-up">
+                          <div className="ah-success-icon-wrap ah-rejected-icon-wrap">
+                            <span className="ah-rejected-emoji" aria-hidden="true">😔</span>
+                          </div>
+                          <h2 className="ah-success-title ah-rejected-title">Yah... Adopsi Tidak Diterima</h2>
+
+                          <div className="ah-success-info-box ah-rejected-info-box">
+                            <p>
+                              Mohon Maaf. Tapi permintaan adopsi {ad.name || ad.breed} kami tolak.
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
                       {state === 2 && (
                         <>
                           <div className="ah-status-icon-large" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fdf5f2', border: '3px dashed #f8c8b5' }}>
@@ -212,7 +245,7 @@ export default function AdoptionHistory() {
                               </div>
                             </div>
                           ) : (
-                            <form onSubmit={(e) => handleAppointmentSubmit(e, ad.animal_id, ad.id)}>
+                            <form onSubmit={(e) => handleAppointmentSubmit(e, ad.animal_id)}>
                               <div className="ah-form-row">
                                 <div className="ah-form-group">
                                   <label>Tanggal</label>
