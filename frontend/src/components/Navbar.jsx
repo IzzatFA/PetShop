@@ -28,7 +28,7 @@ const Navbar = () => {
         <Link to="/" className="navbar-logo">
           <img src={logoImg} alt="Rumah Hewan" style={{ height: '84px' }} />
         </Link>
-        
+
         {/* Mobile Menu Toggle */}
         <button className="mobile-menu-btn" onClick={toggleMenu}>
           {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
@@ -38,9 +38,10 @@ const Navbar = () => {
         <ul className={`navbar-links ${isMobileMenuOpen ? 'mobile-active' : ''}`}>
           <li><Link to="/" className={isActive('/') ? 'active' : ''} onClick={() => setIsMobileMenuOpen(false)}>Beranda</Link></li>
           <li><Link to="/daftar-hewan" className={isActive('/daftar-hewan') ? 'active' : ''} onClick={() => setIsMobileMenuOpen(false)}>Daftar Hewan</Link></li>
+          <li><Link to="/riwayat-adopsi" className={isActive('/riwayat-adopsi') ? 'active' : ''} onClick={() => setIsMobileMenuOpen(false)}>Riwayat Adopsi</Link></li>
           <li><Link to="/alur-adopsi" className={isActive('/alur-adopsi') ? 'active' : ''} onClick={() => setIsMobileMenuOpen(false)}>Alur Adopsi</Link></li>
           <li><Link to="/kontak" className={isActive('/kontak') ? 'active' : ''} onClick={() => setIsMobileMenuOpen(false)}>Kontak</Link></li>
-          
+
           {/* Mobile Actions: Hanya muncul di HP */}
           <li className="mobile-actions-item">
             {user ? (

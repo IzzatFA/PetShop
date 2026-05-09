@@ -11,6 +11,7 @@ import AlurAdopsi from './pages/AlurAdopsi/AlurAdopsi';
 import Kontak from './pages/Kontak/Kontak';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
+import AdoptionHistory from './pages/AdoptionHistory';
 
 import AdminLayout from './components/AdminLayout';
 import AdminDashboard from './pages/admin/Dashboard';
@@ -44,6 +45,7 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
       <Route path="/EditProfile" element={<RequireAuth><EditProfile /></RequireAuth>} />
+      <Route path="/riwayat-adopsi" element={<AdoptionHistory />} />
 
       {/* Admin */}
       <Route path="/admin" element={<RequireAdmin><AdminLayout /></RequireAdmin>}>
