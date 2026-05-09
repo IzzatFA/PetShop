@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../../services/api';
-import { Plus, Edit2, Trash2, X, PawPrint } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, PawPrint, RotateCcw } from 'lucide-react';
 
 const INIT = { category_id: '', breed: '', age: '', description: '', status: 'available', image_url: '', price: '' };
 
@@ -11,11 +11,13 @@ export default function AdminAnimals() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(INIT);
   const [editId, setEditId] = useState(null);
+  const [showTrash, setShowTrash] = useState(false);
 
   const fetchData = async () => {
     try {
+      const url = showTrash ? '/api/animals/deleted' : '/api/animals';
       const [aRes, cRes] = await Promise.all([
-        api.get('/api/animals'),
+        api.get(url),
         api.get('/api/categories')
       ]);
       setAnimals(aRes.data);
@@ -24,7 +26,7 @@ export default function AdminAnimals() {
     finally { setLoading(false); }
   };
 
-  useEffect(() => { fetchData(); }, []);
+  useEffect(() => { fetchData(); }, [showTrash]);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
@@ -72,12 +74,26 @@ export default function AdminAnimals() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Yakin ingin menghapus hewan ini?')) return;
+    const msg = showTrash ? 'Hapus permanen hewan ini?' : 'Yakin ingin menghapus hewan ini?';
+    if (!confirm(msg)) return;
     try {
-      await api.delete(`/api/animals/${id}`);
+      if (showTrash) {
+        await api.delete(`/api/animals/${id}/force`);
+      } else {
+        await api.delete(`/api/animals/${id}`);
+      }
       fetchData();
     } catch (err) {
-      alert('Gagal menghapus hewan.');
+      alert(showTrash ? 'Gagal menghapus permanen.' : 'Gagal menghapus hewan.');
+    }
+  };
+
+  const handleRestore = async (id) => {
+    try {
+      await api.put(`/api/animals/${id}/restore`);
+      fetchData();
+    } catch (err) {
+      alert('Gagal memulihkan hewan.');
     }
   };
 
@@ -87,12 +103,23 @@ export default function AdminAnimals() {
     <div className="anim-fade-up">
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h3 style={{ fontSize: '1rem' }}>Daftar Hewan</h3>
-        <button className="btn btn-primary btn-sm" onClick={() => {
-          setShowForm(!showForm); setForm(INIT); setEditId(null);
-        }}>
-          {showForm ? <><X size={15} /> Tutup</> : <><Plus size={15} /> Tambah Hewan</>}
-        </button>
+        <h3 style={{ fontSize: '1rem' }}>{showTrash ? 'Tempat Sampah' : 'Daftar Hewan'}</h3>
+        <div style={{ display: 'flex', gap: '0.75rem' }}>
+          <button
+            className={`btn ${showTrash ? 'btn-primary' : 'btn-outline'} btn-sm`}
+            onClick={() => { setShowTrash(!showTrash); setShowForm(false); }}
+            title={showTrash ? 'Lihat Hewan Aktif' : 'Lihat Sampah'}
+          >
+            <Trash2 size={15} /> {showTrash ? 'Kembali' : 'Sampah'}
+          </button>
+          {!showTrash && (
+            <button className="btn btn-primary btn-sm" onClick={() => {
+              setShowForm(!showForm); setForm(INIT); setEditId(null);
+            }}>
+              {showForm ? <><X size={15} /> Tutup</> : <><Plus size={15} /> Tambah Hewan</>}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Form */}
@@ -165,7 +192,7 @@ export default function AdminAnimals() {
             {loading ? (
               <tr><td colSpan="8" style={{ textAlign: 'center', padding: '2rem' }}>Memuat data...</td></tr>
             ) : animals.length === 0 ? (
-              <tr><td colSpan="8" style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-muted)' }}>Belum ada hewan.</td></tr>
+              <tr><td colSpan="8" style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-muted)' }}>{showTrash ? 'Tempat sampah kosong.' : 'Belum ada hewan.'}</td></tr>
             ) : (
               animals.map(a => (
                 <tr key={a.id}>
@@ -188,13 +215,28 @@ export default function AdminAnimals() {
                   </td>
                   <td>
                     <div style={{ display: 'flex', gap: '0.4rem' }}>
-                      <button className="btn btn-icon btn-outline" onClick={() => handleEdit(a)} title="Edit">
-                        <Edit2 size={15} />
-                      </button>
-                      <button className="btn btn-icon btn-outline" onClick={() => handleDelete(a.id)} title="Hapus"
-                        style={{ color: 'var(--danger)', borderColor: 'rgba(239,68,68,0.2)' }}>
-                        <Trash2 size={15} />
-                      </button>
+                      {!showTrash ? (
+                        <>
+                          <button className="btn btn-icon btn-outline" onClick={() => handleEdit(a)} title="Edit">
+                            <Edit2 size={15} />
+                          </button>
+                          <button className="btn btn-icon btn-outline" onClick={() => handleDelete(a.id)} title="Hapus"
+                            style={{ color: 'var(--danger)', borderColor: 'rgba(239,68,68,0.2)' }}>
+                            <Trash2 size={15} />
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button className="btn btn-icon btn-outline" onClick={() => handleRestore(a.id)} title="Pulihkan"
+                            style={{ color: 'var(--success)', borderColor: 'rgba(16,185,129,0.2)' }}>
+                            <RotateCcw size={15} />
+                          </button>
+                          <button className="btn btn-icon btn-outline" onClick={() => handleDelete(a.id)} title="Hapus Permanen"
+                            style={{ color: 'var(--danger)', borderColor: 'rgba(239,68,68,0.2)' }}>
+                            <Trash2 size={15} />
+                          </button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>

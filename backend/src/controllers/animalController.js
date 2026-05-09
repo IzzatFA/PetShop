@@ -55,10 +55,46 @@ const destroy = async (req, res) => {
   }
 };
 
+const getDeleted = async (req, res) => {
+  try {
+    const animals = await animalModel.getDeletedAnimals();
+    res.status(200).json(animals);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch deleted animals' });
+  }
+};
+
+const restore = async (req, res) => {
+  try {
+    const animal = await animalModel.restoreAnimal(req.params.id);
+    if (!animal) {
+      return res.status(404).json({ error: 'Animal not found' });
+    }
+    res.status(200).json({ message: 'Animal restored', animal });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to restore animal' });
+  }
+};
+
+const forceDelete = async (req, res) => {
+  try {
+    const animal = await animalModel.hardDeleteAnimal(req.params.id);
+    if (!animal) {
+      return res.status(404).json({ error: 'Animal not found' });
+    }
+    res.status(200).json({ message: 'Animal permanently deleted' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to permanently delete animal' });
+  }
+};
+
 export default {
   index,
   show,
   store,
   update,
   destroy,
+  getDeleted,
+  restore,
+  forceDelete,
 };

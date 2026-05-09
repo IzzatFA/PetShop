@@ -54,6 +54,33 @@ const updateAnimalStatus = async (id, status) => {
   return result.rows[0];
 };
 
+const getDeletedAnimals = async () => {
+  const result = await db.query(`
+    SELECT a.*, c.name as category_name
+    FROM animals a
+    LEFT JOIN categories c ON a.category_id = c.id
+    WHERE a.deleted_at IS NOT NULL
+    ORDER BY a.deleted_at DESC
+  `);
+  return result.rows;
+};
+
+const restoreAnimal = async (id) => {
+  const result = await db.query(
+    'UPDATE animals SET deleted_at = NULL WHERE id = $1 RETURNING *',
+    [id]
+  );
+  return result.rows[0];
+};
+
+const hardDeleteAnimal = async (id) => {
+  const result = await db.query(
+    'DELETE FROM animals WHERE id = $1 RETURNING *',
+    [id]
+  );
+  return result.rows[0];
+};
+
 export default {
   getAllAnimals,
   getAnimalById,
@@ -61,4 +88,7 @@ export default {
   updateAnimal,
   deleteAnimal,
   updateAnimalStatus,
+  getDeletedAnimals,
+  restoreAnimal,
+  hardDeleteAnimal,
 };
