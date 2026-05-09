@@ -238,36 +238,6 @@
   font-weight: 500;
 }
 
-.adopter-info {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.adopter-avatar {
-  width: 48px;
-  height: 48px;
-  background-color: #EBB6A2;
-  color: var(--dh-primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.adopter-name {
-  font-weight: 800;
-  color: var(--dh-primary);
-  margin-bottom: 4px;
-}
-
-.adopter-detail {
-  font-size: 13px;
-  color: var(--dh-text-light);
-}
-
 a.reg-link {
   text-decoration: underline !important;
 }
