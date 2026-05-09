@@ -31,7 +31,11 @@ export default function DaftarHewan() {
         }
 
         const [aRes, cRes, adRes] = await Promise.all(requests);
-        const adoptedAnimalIds = new Set((adRes?.data || []).map(adoption => adoption.animal_id));
+        const adoptedAnimalIds = new Set(
+          (adRes?.data || [])
+            .filter(adoption => adoption.status === 'pending' || adoption.status === 'approved')
+            .map(adoption => adoption.animal_id)
+        );
         setAnimals(
           aRes.data.filter(a => a.status === 'available' && !adoptedAnimalIds.has(a.id))
         );
