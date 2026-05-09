@@ -56,7 +56,7 @@ export default function AdoptionHistory() {
       });
       alert("Janji temu berhasil diajukan!");
       setAppointmentData({ date: '', time: '09:00 WIB' });
-      fetchHistory(); 
+      fetchHistory();
     } catch (err) {
       console.error("Submit Appointment Error:", err);
       alert(err.response?.data?.details || err.response?.data?.error || "Gagal mengajukan janji temu");
@@ -67,20 +67,20 @@ export default function AdoptionHistory() {
     const appt = appointments.find(a => a.animal_id === ad.animal_id);
     const adStatus = ad.status ? ad.status.toLowerCase() : 'pending';
     const apptStatus = appt?.status ? appt.status.toLowerCase() : 'pending';
-    
+
     // 5: Success (Appointment Completed/Approved) -> All 4 steps checked
     // Admin uses 'completed' to mark successful pickup
     if (appt && apptStatus === 'completed') return 5;
-    
+
     // 4: Penjemputan (Waiting for Appointment Approval) -> Step 4 active
     if (appt) return 4;
-    
+
     // 3: Atur Janji Temu (Adoption Approved, but no appointment made yet) -> Step 3 active
     if (adStatus === 'approved') return 3;
-    
+
     // 2: Verifikasi Admin (Adoption Pending) -> Step 2 active
     if (adStatus === 'pending') return 2;
-    
+
     return 1;
   };
 
@@ -123,7 +123,7 @@ export default function AdoptionHistory() {
       <div className="navbar-container">
         <Navbar />
       </div>
-      
+
       <section className="ah-hero">
         <div className="ah-hero-bg" style={{ backgroundImage: `url(${heroBg})` }}></div>
         <div className="ah-hero-overlay"></div>
@@ -155,7 +155,7 @@ export default function AdoptionHistory() {
             adoptions.map(ad => {
               const state = getAdoptionState(ad);
               const appt = appointments.find(a => a.animal_id === ad.animal_id);
-              
+
               return (
                 <div key={ad.id} className="ah-adoption-item anim-fade-up">
                   {renderStepper(state)}
@@ -197,11 +197,11 @@ export default function AdoptionHistory() {
 
                       {state === 3 && (
                         <div className="ah-appointment-card">
-                          <h2 className="ah-appointment-title">Janji Janji Temu</h2>
+                          <h2 className="ah-appointment-title">Atur Janji Temu</h2>
                           <p className="ah-appointment-desc">
                             Selamat! Verifikasi kamu lolos. Silahkan pilih waktu janji temu untuk pengambilan hewan.
                           </p>
-                          
+
                           {appt ? (
                             <div className="glass" style={{ padding: '2rem', borderRadius: '1rem', background: 'white' }}>
                               <h3 style={{ marginBottom: '1rem', color: 'var(--primary)' }}>Permintaan Terkirim</h3>
@@ -216,20 +216,20 @@ export default function AdoptionHistory() {
                               <div className="ah-form-row">
                                 <div className="ah-form-group">
                                   <label>Tanggal</label>
-                                  <input 
-                                    type="date" 
-                                    className="ah-input-styled" 
-                                    required 
+                                  <input
+                                    type="date"
+                                    className="ah-input-styled"
+                                    required
                                     value={appointmentData.date}
-                                    onChange={e => setAppointmentData({...appointmentData, date: e.target.value})}
+                                    onChange={e => setAppointmentData({ ...appointmentData, date: e.target.value })}
                                   />
                                 </div>
                                 <div className="ah-form-group">
                                   <label>Jam</label>
-                                  <select 
+                                  <select
                                     className="ah-input-styled"
                                     value={appointmentData.time}
-                                    onChange={e => setAppointmentData({...appointmentData, time: e.target.value})}
+                                    onChange={e => setAppointmentData({ ...appointmentData, time: e.target.value })}
                                   >
                                     <option>09:00 WIB</option>
                                     <option>10:00 WIB</option>
@@ -253,11 +253,17 @@ export default function AdoptionHistory() {
                             <div className="ah-status-icon-large" style={{ margin: '0 auto 1.5rem', background: '#fdf5f2', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #f8c8b5' }}>
                               <Calendar size={48} color="#a6523d" />
                             </div>
-                            <h3 style={{ marginBottom: '1rem', color: 'var(--primary)', fontSize: '1.5rem', fontWeight: '800' }}>Menunggu Konfirmasi Jadwal</h3>
-                            <p style={{ color: '#666', marginBottom: '2rem', maxWidth: '400px', margin: '0 auto 2rem' }}>Janji temu sudah diajukan. Kami sedang menyesuaikan jadwal dengan tim di shelter. Tunggu sebentar ya!</p>
-                            <div style={{ padding: '1.25rem 2rem', background: '#fdf5f2', borderRadius: '1rem', fontWeight: '800', color: '#5C2822', display: 'inline-flex', alignItems: 'center', gap: '0.75rem', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-                              <Calendar size={20} />
-                              <span>{new Date(appt.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} pukul {new Date(appt.date).getHours()}.{new Date(appt.date).getMinutes().toString().padStart(2, '0')}</span>
+                            <h3 style={{ marginBottom: '1rem', color: 'var(--primary)', fontSize: '1.5rem', fontWeight: '800' }}>Sampai Jumpa di Lokasi!</h3>
+                            <p style={{ color: '#666', marginBottom: '2rem', maxWidth: '400px', margin: '0 auto 2rem' }}>Jadwal kamu sudah tercatat. Silahkan datang ke shelter sesuai waktu yang kamu pilih ya!</p>
+
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
+                              <div style={{ padding: '1.25rem 2rem', background: '#fdf5f2', borderRadius: '1rem', fontWeight: '800', color: '#5C2822', display: 'inline-flex', alignItems: 'center', gap: '0.75rem', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+                                <Calendar size={20} />
+                                <span>{new Date(appt.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} pukul {new Date(appt.date).getHours()}.{new Date(appt.date).getMinutes().toString().padStart(2, '0')}</span>
+                              </div>
+                              <div style={{ color: 'var(--primary)', fontWeight: '600', fontSize: '0.9rem' }}>
+                                📍 Shelter PetShop Pusat
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -268,36 +274,23 @@ export default function AdoptionHistory() {
                           <div className="ah-success-icon-wrap">
                             <Heart size={48} fill="#27ae60" color="#27ae60" />
                           </div>
-                          <h2 className="ah-success-title">Adopsi Berhasil!!</h2>
-                          
+                          <h2 className="ah-success-title">Yeay! Adopsi Berhasil</h2>
+
                           <div className="ah-success-status-line">
-                            <Calendar size={20} />
-                            <span>Status Janji Temu: <strong>COMPLETED</strong></span>
+                            <Check size={20} color="#27ae60" />
+                            <span>Status: <strong>HEWAN SUDAH DIAMBIL</strong></span>
                           </div>
 
-                          <div className="ah-success-info-box">
-                            <div className="ah-info-item">
-                              <span className="ah-info-label">Waktu pertemuan</span>
-                              <span className="ah-info-value">
-                                {new Date(appt.date).toLocaleString('id-ID', { 
-                                  weekday: 'long', 
-                                  day: 'numeric', 
-                                  month: 'long', 
-                                  year: 'numeric'
-                                })} pukul {new Date(appt.date).getHours()}.{new Date(appt.date).getMinutes().toString().padStart(2, '0')}
-                              </span>
-                            </div>
-                            <div className="ah-info-item">
-                              <span className="ah-info-label">Lokasi</span>
-                              <span className="ah-info-value">Shelter PetShop Pusat</span>
-                            </div>
+                          <div className="ah-success-info-box" style={{ background: '#e8f5e9', border: '1px solid #c8e6c9', textAlign: 'center', display: 'block' }}>
+                            <p style={{ fontSize: '1.1rem', fontWeight: '700', color: '#2e7d32', margin: 0 }}>
+                              Selamat! Anabul sudah resmi jadi bagian keluarga kamu. Jaga anabulnya baik-baik ya! ❤️
+                            </p>
                           </div>
 
                           <div className="ah-success-footer-text">
                             <Check size={18} />
-                            Admin telah mengonfirmasi jadwal Anda. Sampai jumpa dilokasi!
+                            Proses adopsi selesai. Terima kasih telah memberikan rumah baru!
                           </div>
-
                         </div>
                       )}
                     </div>
