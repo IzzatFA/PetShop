@@ -13,7 +13,7 @@ const createAdoption = async (user_id, animal_id, data = {}) => {
 
 const getAdoptionsByUserId = async (user_id) => {
   const result = await db.query(`
-    SELECT ad.*, an.breed, an.description, c.name as category_name
+    SELECT ad.*, an.breed, an.description, an.image_url, c.name as category_name
     FROM adoptions ad
     JOIN animals an ON ad.animal_id = an.id
     LEFT JOIN categories c ON an.category_id = c.id
